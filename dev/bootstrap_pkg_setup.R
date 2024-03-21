@@ -38,6 +38,6 @@ usethis::use_vignette("tidyRename") # getting started
 
 usethis::use_pkgdown() # run once
 # usethis::use_github_pages() # failed. Instead run this: https://gist.github.com/ramnathv/2227408
-# usethis::use_github_action("pkgdown")
+usethis::use_github_action("pkgdown")
 
 usethis::use_github_action_check_standard() # run once
