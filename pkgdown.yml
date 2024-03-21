@@ -1,0 +1,7 @@
+pandoc: 3.1.11
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  tidyRename: tidyRename.html
+last_built: 2024-03-21T20:25Z
+
