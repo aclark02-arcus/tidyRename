@@ -9,7 +9,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of tidyRename is to …
+Project built off of this [pull
+request](https://github.com/atorus-research/xportr/pull/11/files).
 
 ## Installation
 
