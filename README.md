@@ -22,6 +22,8 @@ the pharma industry as well - it’s a handy “renamer”. Just give it a
 vector of strings, and it will tidy them up for you to meet your custom
 needs. See example use cases below!
 
+<br>
+
 ## Origins
 
 Project built off of this
@@ -29,12 +31,12 @@ Project built off of this
 to [{xportr}](https://github.com/atorus-research/xportr) from the
 [{pharmaverse}](https://pharmaverse.org/)
 
+<br>
+
 ## What are the checks?
 
 If you interested in using `{tidyRename}` for submission compliance to
 regulatory bodies, here’s what you can expect from it’s output:
-
-<br>
 
 - Variable names must start with a letter (not an underscore), be
   comprised of only uppercase letters (A-Z), numerals (0-9) and be free
@@ -50,6 +52,8 @@ regulatory bodies, here’s what you can expect from it’s output:
 - Presence of non-ASCII characters in Variable Names, Labels or data set
   labels.
 
+<br>
+
 ## Installation
 
 You can install the development version of tidyRename from
@@ -59,6 +63,8 @@ You can install the development version of tidyRename from
 # install.packages("devtools")
 devtools::install_github("aclark02-arcus/tidyRename")
 ```
+
+<br>
 
 ## Example use cases
 
