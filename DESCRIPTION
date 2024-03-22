@@ -13,7 +13,7 @@ Description: Reduces by automating the creation of submission compliant
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.0
+RoxygenNote: 7.3.1
 Suggests: 
     knitr,
     rmarkdown,
@@ -25,5 +25,6 @@ Imports:
     janitor,
     purrr,
     readr,
+    SnowballC,
     stringr,
     tm

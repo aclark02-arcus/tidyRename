@@ -19,20 +19,23 @@ knitr::opts_chunk$set(
   [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
   <!-- badges: end -->
 
-Project built off of this [pull request](https://github.com/atorus-research/xportr/pull/11/files).
 
-## Installation
 
-You can install the development version of tidyRename from [GitHub](https://github.com/) with:
 
-``` r
-# install.packages("devtools")
-devtools::install_github("aclark02-arcus/tidyRename")
-```
 
 ## Purpose
 
-# What are the checks?
+`{tidyRename}` was originally designed for automating the creation of submission compliant variable attributes for SAS v5 Transport files (i.e. <=8 characters for variable names, among other things). However, the same concepts can be expanded to CSR activities i.e., SDTM variables mapping process etc. to ensure uniformity among users and eliminates wasted time manually creating easily-readable variable names for high dimensional data sets. In fact, `{tidyRename}` can be useful outside of the pharma industry as well - it's a handy "renamer". Just give it a vector of strings, and it will tidy them up for you to meet your custom needs. See example use cases below!
+    
+    
+## Origins
+
+Project built off of this [contribution](https://github.com/atorus-research/xportr/pull/11/files) to [{xportr}](https://github.com/atorus-research/xportr) from the [{pharmaverse}](https://pharmaverse.org/)
+
+
+## What are the checks?
+
+If you interested in using `{tidyRename}` for submission compliance to regulatory bodies, here's what you can expect from it's output:
 
 <br>
 
@@ -47,27 +50,99 @@ data sets (≤ 200)
 - Data set labels are ≤ 40 characters.
 - Presence of non-ASCII characters in Variable Names, Labels or data set labels.
 
-## Example
 
-This is a basic example which shows you how to solve a common problem:
+## Installation
 
-```{r example}
-# library(tidyRename)
-## basic example code
+You can install the development version of tidyRename from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("aclark02-arcus/tidyRename")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
+## Example use cases
+
+### Renaming strings
+
+This is a basic example which shows you how to solve a common problem with raw data variable names, manipulated as a character vector:
+
+```{r example1}
+library(tidyRename)
+
+## basic example converting 
+vars <- c("", "studyid", "STUDYID", "subject id", "1c. ENT", "1b. Eyes",
+          "1d. Lungs", "1e. Heart", "year number", "1a. Skin_Desc")
+
+# Default behavior
+tidy_rename(vars)
+
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+The user can alter the final letter case of the output by specifying "upper", "lower", or "asis" to maintain the input string case:
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r example2}
+# maintain source case
+tidy_rename(vars, letter_case = "asis") 
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+By default, SAS v5 transport files require variable names to be 8 or less characters, but `{tidyRename}` can accept custom character lengths for the final output:
+
+```{r example3}
+# Set Custom character length in output
+tidy_rename(vars, char_len = 10)
+```
+
+Usually, you don't want a number to be the first character of your variable name. By default, those numbers will be relocated to the end of the string. However, if you want to keep them up front, that's possible! But we recommend you add a letter prefix as seen below:
+
+```{r example4}
+# Leave numerical prefix on left-hand side, but add a starting letter
+tidy_rename(vars, relo_2_end = FALSE, letter_for_num_prefix = "q")
+```
+
+Sometimes you'll have some common variable names that you'll always want to change to a standard name. For that use case, just specify a "dictionary data.frame", as seen in the below example:
+
+```{r example5}
+# Add a dictionary and remove underscores - impacts var 4
+tidy_rename(vars, sep = "",
+dict_dat = data.frame(original_varname = "subject id", dict_varname = "subjid"))
+```
+
+### Renaming data frame variable attributes directly
+
+These basic examples shows you how to use `{tidyRename}` to manipulated a data.frame object's variable attributes directly, returning the input data.frame:
+
+
+```{r example6}
+vars <- c("", "STUDYID", "studyid", "subject id", "1c. ENT", "1b. Eyes",
+      "1d. Lungs", "1e. Heart", "year number", "1a. Skin_Desc")
+adxx <- data.frame(matrix(0, ncol = 10, nrow = 3))
+colnames(adxx) <- vars
+
+
+tidy_varnames(adxx) # default
+
+tidy_varnames(adxx, relo_2_end = FALSE, letter_for_num_prefix = "q") # prefix numbers on left-hand side
+
+my_dictionary <- data.frame(original_varname = "subject id", dict_varname = "subjid")
+tidy_varnames(adxx, dict_dat  = my_dictionary) # 'SUBJID' used
+
+tidy_varnames(adxx, sep = "_") # permissible for legacy studies
+```
+
+
+
+
+
+<br>
+
+
+<br>
+
+
+<br>
+
+
+<br>
+
+

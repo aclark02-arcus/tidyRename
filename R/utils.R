@@ -246,7 +246,7 @@ prefix_num <- function(x){
 #' Prefix Bundle Extraction Vessel
 #'
 #' A helper function used to simplify the extraction of certain prefix bundles, used in
-#' \code\link{gather_n_move_prefix_num_bundle}}.
+#' \code\link{gather_n_move_prefix_num_bundle}.
 #'
 #' @param x a character vector where matches are sought, or an object which can
 #'   be coerced by as.character to a character vector. Long vectors are
@@ -410,10 +410,52 @@ var_names_log <- function(tidy_names_df, verbose){
   }
 }
 
+#' ntext
+#'
+#' @param n a vector
+#' @param msg1 a vector
+#' @param msg2 a vector
+#' @noRd
+ntext <- function(n, msg1, msg2) {
+  if (n == 1) msg1 else msg2
+}
+
+#' fmt_comma
+#' @importFrom glue glue_collapse
+#'
+#' @param x a vector
+#' @noRd
+fmt_comma <- function(x) {
+  glue_collapse(x, sep = ", ", last = if (length(x) <= 2) " and " else ", and ")
+}
+
+#' encode_vars
+#'
+#' @param x a vector
+#' @noRd
+encode_vars <- function(x) {
+  if (is.character(x)) {
+    x <- encodeString(x, quote = "`")
+  }
+
+  fmt_comma(x)
+}
+
+#' fmt_vars
+#'
+#' @importFrom glue glue
+#'
+#' @param x a vector of variable names
+#' @noRd
+fmt_vars <- function(x) {
+  vars <- ntext(length(x), "Variable", "Variables")
+  glue::glue("{vars} {encode_vars(x)}")
+}
 
 
 #' Execute checks on variable names
 #'
+#' @importFrom glue glue
 #'
 #' @param varnames a vector of variable namess
 #' @param list_vars_first a logical
@@ -429,8 +471,8 @@ xpt_validate_var_names <- function(varnames,
 
   if (length(chk_varlen) > 0) {
     err_cnd <- c(err_cnd, ifelse(list_vars_first,
-                                 glue("{fmt_vars(chk_varlen)} must be 8 characters or less."),
-                                 glue("
+                                 glue::glue("{fmt_vars(chk_varlen)} must be 8 characters or less."),
+                                 glue::glue("
                       Must be 8 characters or less: {fmt_vars(chk_varlen)}.")))
   }
 
@@ -440,8 +482,8 @@ xpt_validate_var_names <- function(varnames,
 
   if (length(chk_first_chr) > 0) {
     err_cnd <- c(err_cnd, ifelse(list_vars_first,
-                                 glue("{fmt_vars(chk_first_chr)} must start with a letter."),
-                                 glue("
+                                 glue::glue("{fmt_vars(chk_first_chr)} must start with a letter."),
+                                 glue::glue("
                       Must start with a letter: {fmt_vars(chk_first_chr)}.")))
   }
 
@@ -450,8 +492,8 @@ xpt_validate_var_names <- function(varnames,
 
   if (length(chk_alnum) > 0) {
     err_cnd <- c(err_cnd, ifelse(list_vars_first,
-                                 glue("{fmt_vars(chk_alnum)} cannot contain any non-ASCII, symbol or underscore characters."),
-                                 glue("
+                                 glue::glue("{fmt_vars(chk_alnum)} cannot contain any non-ASCII, symbol or underscore characters."),
+                                 glue::glue("
                       Cannot contain any non-ASCII, symbol or underscore characters: {fmt_vars(chk_alnum)}.")))
   }
 
@@ -462,8 +504,8 @@ xpt_validate_var_names <- function(varnames,
 
   if (length(chk_lower) > 0) {
     err_cnd <- c(err_cnd, ifelse(list_vars_first,
-                                 glue("{fmt_vars(chk_lower)} cannot contain any lowercase characters."),
-                                 glue("
+                                 glue::glue("{fmt_vars(chk_lower)} cannot contain any lowercase characters."),
+                                 glue::glue("
                       Cannot contain any lowercase characters {fmt_vars(chk_lower)}.")))
   }
   return(err_cnd)

@@ -2,6 +2,7 @@
 # Workflow for setting up the repository
 install.packages("usethis")
 install.packages("devtools")
+install.packages("SnowballC")
 install.packages("cli")
 devtools::load_all()
 install.packages(c("readr", "janitor", "tm", "dplyr"))
@@ -30,6 +31,9 @@ usethis::use_package("stringr")
 usethis::use_package("purrr")
 usethis::use_package("cli")
 usethis::use_package("spelling", type = "Suggests")
+
+usethis::use_package("SnowballC")
+
 
 # Add data-raw folder to generate exported data objects
 # usethis::use_data_raw(name = "placeholder", open = FALSE )
