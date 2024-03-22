@@ -1,10 +1,13 @@
 
 # Workflow for setting up the repository
 install.packages("usethis")
-install.packages(c("tidyr", "tidyselect", "readr", "janitor", "tm", "dplyr"))
+install.packages("devtools")
+devtools::load_all()
+install.packages(c("readr", "janitor", "tm", "dplyr"))
 
 install.packages("stringr")
 packageVersion("stringr")
+packageVersion("purrr")
 
 # create pkg skeleton structure
 usethis::create_package(getwd())
@@ -18,12 +21,11 @@ usethis::use_news_md( open = TRUE )
 usethis::use_mit_license()
 
 # Add package dependencies to import statement
-usethis::use_package("tidyr") # not run yet
-usethis::use_package("tidyselect")
 usethis::use_package("readr")
 usethis::use_package("janitor")
 usethis::use_package("tm")
 usethis::use_package("stringr")
+usethis::use_package("purrr")
 
 # Add data-raw folder to generate exported data objects
 # usethis::use_data_raw(name = "placeholder", open = FALSE )
