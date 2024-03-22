@@ -25,7 +25,52 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/abbreviate_v.html</loc>
+  </url>
+  <url>
+    <loc>/reference/chg_letter_case.html</loc>
+  </url>
+  <url>
+    <loc>/reference/encode_vars.html</loc>
+  </url>
+  <url>
+    <loc>/reference/extrct_vssl.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fmt_comma.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fmt_vars.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gather_n_move_prefix_num_bundle.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/least_pushy_rename_method.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ntext.html</loc>
+  </url>
+  <url>
+    <loc>/reference/prefix_num.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_words.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_words_and_nums.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_words_nums_no_sym.html</loc>
+  </url>
+  <url>
+    <loc>/reference/replace_sym.html</loc>
+  </url>
+  <url>
+    <loc>/reference/starts_with_number.html</loc>
   </url>
   <url>
     <loc>/reference/tidyRename-package.html</loc>
@@ -35,5 +80,29 @@
   </url>
   <url>
     <loc>/reference/tidy_varnames.html</loc>
+  </url>
+  <url>
+    <loc>/reference/var_names_log.html</loc>
+  </url>
+  <url>
+    <loc>/reference/words_.html</loc>
+  </url>
+  <url>
+    <loc>/reference/words_1a.html</loc>
+  </url>
+  <url>
+    <loc>/reference/words_ABb.html</loc>
+  </url>
+  <url>
+    <loc>/reference/words_a1.html</loc>
+  </url>
+  <url>
+    <loc>/reference/words_aB.html</loc>
+  </url>
+  <url>
+    <loc>/reference/words_grapes.html</loc>
+  </url>
+  <url>
+    <loc>/reference/xpt_validate_var_names.html</loc>
   </url>
 </urlset>
