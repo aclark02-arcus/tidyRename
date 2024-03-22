@@ -71,23 +71,20 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>Project built off of this <a href="https://github.com/atorus-research/xportr/pull/11/files" class="external-link">pull request</a>.</p>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h2>
-<p>You can install the development version of tidyRename from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"aclark02-arcus/tidyRename"</span><span class="op">)</span></span></code></pre></div>
-</div>
 <div class="section level2">
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h2>
+<p><code>{tidyRename}</code> was originally designed for automating the creation of submission compliant variable attributes for SAS v5 Transport files (i.e. &lt;=8 characters for variable names, among other things). However, the same concepts can be expanded to CSR activities i.e., SDTM variables mapping process etc. to ensure uniformity among users and eliminates wasted time manually creating easily-readable variable names for high dimensional data sets. In fact, <code>{tidyRename}</code> can be useful outside of the pharma industry as well - it’s a handy “renamer”. Just give it a vector of strings, and it will tidy them up for you to meet your custom needs. See example use cases below!</p>
 </div>
+<div class="section level2">
+<h2 id="origins">Origins<a class="anchor" aria-label="anchor" href="#origins"></a>
+</h2>
+<p>Project built off of this <a href="https://github.com/atorus-research/xportr/pull/11/files" class="external-link">contribution</a> to <a href="https://github.com/atorus-research/xportr" class="external-link">{xportr}</a> from the <a href="https://pharmaverse.org/" class="external-link">{pharmaverse}</a></p>
 </div>
-<div class="section level1">
-<h1 id="what-are-the-checks">What are the checks?<a class="anchor" aria-label="anchor" href="#what-are-the-checks"></a>
-</h1>
+<div class="section level2">
+<h2 id="what-are-the-checks">What are the checks?<a class="anchor" aria-label="anchor" href="#what-are-the-checks"></a>
+</h2>
+<p>If you interested in using <code>{tidyRename}</code> for submission compliance to regulatory bodies, here’s what you can expect from it’s output:</p>
 <p><br></p>
 <ul>
 <li>Variable names must start with a letter (not an underscore), be comprised of only uppercase letters (A-Z), numerals (0-9) and be free of non-ASCII characters, symbols, and underscores.</li>
@@ -99,30 +96,297 @@
 <li>Data set labels are ≤ 40 characters.</li>
 <li>Presence of non-ASCII characters in Variable Names, Labels or data set labels.</li>
 </ul>
+</div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p>You can install the development version of tidyRename from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"aclark02-arcus/tidyRename"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="example-use-cases">Example use cases<a class="anchor" aria-label="anchor" href="#example-use-cases"></a>
+</h2>
+<div class="section level3">
+<h3 id="renaming-strings">Renaming strings<a class="anchor" aria-label="anchor" href="#renaming-strings"></a>
+</h3>
+<p>This is a basic example which shows you how to solve a common problem with raw data variable names, manipulated as a character vector:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># library(tidyRename)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
-<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">tidyRename</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## basic example converting </span></span>
+<span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"studyid"</span>, <span class="st">"STUDYID"</span>, <span class="st">"subject id"</span>, <span class="st">"1c. ENT"</span>, <span class="st">"1b. Eyes"</span>,</span>
+<span>          <span class="st">"1d. Lungs"</span>, <span class="st">"1e. Heart"</span>, <span class="st">"year number"</span>, <span class="st">"1a. Skin_Desc"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Default behavior</span></span>
+<span><span class="fu"><a href="reference/tidy_rename.html">tidy_rename</a></span><span class="op">(</span><span class="va">vars</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 10 of 10 (100%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 2:  'studyid' was renamed to 'STUDYID'</span></span>
+<span><span class="co">#&gt; Var 3:  'STUDYID' was renamed to 'STUDYID2'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'SUBJECTD'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'ENT1C'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'EYES1B'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'LUNGS1D'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'HEART1E'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'YEARNUMB'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'SKNDSC1A'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; All renamed variables passed validation.</span></span>
+<span><span class="co">#&gt;  [1] "V1"       "STUDYID"  "STUDYID2" "SUBJECTD" "ENT1C"    "EYES1B"  </span></span>
+<span><span class="co">#&gt;  [7] "LUNGS1D"  "HEART1E"  "YEARNUMB" "SKNDSC1A"</span></span></code></pre></div>
+<p>The user can alter the final letter case of the output by specifying “upper”, “lower”, or “asis” to maintain the input string case:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      speed           dist       </span></span>
-<span><span class="co">#&gt;  Min.   : 4.0   Min.   :  2.00  </span></span>
-<span><span class="co">#&gt;  1st Qu.:12.0   1st Qu.: 26.00  </span></span>
-<span><span class="co">#&gt;  Median :15.0   Median : 36.00  </span></span>
-<span><span class="co">#&gt;  Mean   :15.4   Mean   : 42.98  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:19.0   3rd Qu.: 56.00  </span></span>
-<span><span class="co">#&gt;  Max.   :25.0   Max.   :120.00</span></span></code></pre></div>
-<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code>devtools::build_readme()</code> is handy for this.</p>
-<p>You can also embed plots, for example:</p>
-<p><img src="reference/figures/README-pressure-1.png" width="100%"></p>
-<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub and CRAN.</p>
+<code class="sourceCode R"><span><span class="co"># maintain source case</span></span>
+<span><span class="fu"><a href="reference/tidy_rename.html">tidy_rename</a></span><span class="op">(</span><span class="va">vars</span>, letter_case <span class="op">=</span> <span class="st">"asis"</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 8 of 10 (80%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'subjectd'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'ENT1c'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'Eyes1b'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'Lungs1d'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'Heart1e'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'yearnumb'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'SknDsc1a'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks still failed:</span></span>
+<span><span class="co">#&gt; Cannot contain any lowercase characters Variables `studyid`, `subjectd`, `ENT1c`, `Eyes1b`, `Lungs1d`, `Heart1e`, `yearnumb`, and `SknDsc1a`.</span></span>
+<span><span class="co">#&gt;  [1] "V1"       "studyid"  "STUDYID"  "subjectd" "ENT1c"    "Eyes1b"  </span></span>
+<span><span class="co">#&gt;  [7] "Lungs1d"  "Heart1e"  "yearnumb" "SknDsc1a"</span></span></code></pre></div>
+<p>By default, SAS v5 transport files require variable names to be 8 or less characters, but <code>{tidyRename}</code> can accept custom character lengths for the final output:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set Custom character length in output</span></span>
+<span><span class="fu"><a href="reference/tidy_rename.html">tidy_rename</a></span><span class="op">(</span><span class="va">vars</span>, char_len <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 10 of 10 (100%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 2:  'studyid' was renamed to 'STUDYID'</span></span>
+<span><span class="co">#&gt; Var 3:  'STUDYID' was renamed to 'STUDYID2'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'SUBJECTID'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'ENT1C'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'EYES1B'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'LUNGS1D'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'HEART1E'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'YEARNUMBER'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'SKINDESC1A'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks still failed:</span></span>
+<span><span class="co">#&gt; Must be 8 characters or less: Variables `SUBJECTID`, `YEARNUMBER`, and `SKINDESC1A`.</span></span>
+<span><span class="co">#&gt;  [1] "V1"         "STUDYID"    "STUDYID2"   "SUBJECTID"  "ENT1C"     </span></span>
+<span><span class="co">#&gt;  [6] "EYES1B"     "LUNGS1D"    "HEART1E"    "YEARNUMBER" "SKINDESC1A"</span></span></code></pre></div>
+<p>Usually, you don’t want a number to be the first character of your variable name. By default, those numbers will be relocated to the end of the string. However, if you want to keep them up front, that’s possible! But we recommend you add a letter prefix as seen below:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Leave numerical prefix on left-hand side, but add a starting letter</span></span>
+<span><span class="fu"><a href="reference/tidy_rename.html">tidy_rename</a></span><span class="op">(</span><span class="va">vars</span>, relo_2_end <span class="op">=</span> <span class="cn">FALSE</span>, letter_for_num_prefix <span class="op">=</span> <span class="st">"q"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 10 of 10 (100%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 2:  'studyid' was renamed to 'STUDYID'</span></span>
+<span><span class="co">#&gt; Var 3:  'STUDYID' was renamed to 'STUDYID2'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'SUBJECTD'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'Q1CENT'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'Q1BEYES'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'Q1DLUNGS'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'Q1EHEART'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'YEARNUMB'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'Q1SKNDSC'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; All renamed variables passed validation.</span></span>
+<span><span class="co">#&gt;  [1] "V1"       "STUDYID"  "STUDYID2" "SUBJECTD" "Q1CENT"   "Q1BEYES" </span></span>
+<span><span class="co">#&gt;  [7] "Q1DLUNGS" "Q1EHEART" "YEARNUMB" "Q1SKNDSC"</span></span></code></pre></div>
+<p>Sometimes you’ll have some common variable names that you’ll always want to change to a standard name. For that use case, just specify a “dictionary data.frame”, as seen in the below example:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Add a dictionary and remove underscores - impacts var 4</span></span>
+<span><span class="fu"><a href="reference/tidy_rename.html">tidy_rename</a></span><span class="op">(</span><span class="va">vars</span>, sep <span class="op">=</span> <span class="st">""</span>,</span>
+<span>dict_dat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>original_varname <span class="op">=</span> <span class="st">"subject id"</span>, dict_varname <span class="op">=</span> <span class="st">"subjid"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 10 of 10 (100%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 2:  'studyid' was renamed to 'STUDYID'</span></span>
+<span><span class="co">#&gt; Var 3:  'STUDYID' was renamed to 'STUDYID2'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'SUBJID'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'ENT1C'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'EYES1B'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'LUNGS1D'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'HEART1E'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'YEARNUMB'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'SKNDSC1A'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; All renamed variables passed validation.</span></span>
+<span><span class="co">#&gt;  [1] "V1"       "STUDYID"  "STUDYID2" "SUBJID"   "ENT1C"    "EYES1B"  </span></span>
+<span><span class="co">#&gt;  [7] "LUNGS1D"  "HEART1E"  "YEARNUMB" "SKNDSC1A"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="renaming-data-frame-variable-attributes-directly">Renaming data frame variable attributes directly<a class="anchor" aria-label="anchor" href="#renaming-data-frame-variable-attributes-directly"></a>
+</h3>
+<p>These basic examples shows you how to use <code>{tidyRename}</code> to manipulated a data.frame object’s variable attributes directly, returning the input data.frame:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"STUDYID"</span>, <span class="st">"studyid"</span>, <span class="st">"subject id"</span>, <span class="st">"1c. ENT"</span>, <span class="st">"1b. Eyes"</span>,</span>
+<span>      <span class="st">"1d. Lungs"</span>, <span class="st">"1e. Heart"</span>, <span class="st">"year number"</span>, <span class="st">"1a. Skin_Desc"</span><span class="op">)</span></span>
+<span><span class="va">adxx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">adxx</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">vars</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="reference/tidy_varnames.html">tidy_varnames</a></span><span class="op">(</span><span class="va">adxx</span><span class="op">)</span> <span class="co"># default</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 9 of 10 (90%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 3:  'studyid' was renamed to 'STUDYID2'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'SUBJECTD'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'ENT1C'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'EYES1B'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'LUNGS1D'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'HEART1E'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'YEARNUMB'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'SKNDSC1A'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; All renamed variables passed validation.</span></span>
+<span><span class="co">#&gt;   V1 STUDYID STUDYID2 SUBJECTD ENT1C EYES1B LUNGS1D HEART1E YEARNUMB SKNDSC1A</span></span>
+<span><span class="co">#&gt; 1  0       0        0        0     0      0       0       0        0        0</span></span>
+<span><span class="co">#&gt; 2  0       0        0        0     0      0       0       0        0        0</span></span>
+<span><span class="co">#&gt; 3  0       0        0        0     0      0       0       0        0        0</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/tidy_varnames.html">tidy_varnames</a></span><span class="op">(</span><span class="va">adxx</span>, relo_2_end <span class="op">=</span> <span class="cn">FALSE</span>, letter_for_num_prefix <span class="op">=</span> <span class="st">"q"</span><span class="op">)</span> <span class="co"># prefix numbers on left-hand side</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 9 of 10 (90%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 3:  'studyid' was renamed to 'STUDYID2'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'SUBJECTD'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'Q1CENT'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'Q1BEYES'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'Q1DLUNGS'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'Q1EHEART'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'YEARNUMB'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'Q1SKNDSC'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; All renamed variables passed validation.</span></span>
+<span><span class="co">#&gt;   V1 STUDYID STUDYID2 SUBJECTD Q1CENT Q1BEYES Q1DLUNGS Q1EHEART YEARNUMB</span></span>
+<span><span class="co">#&gt; 1  0       0        0        0      0       0        0        0        0</span></span>
+<span><span class="co">#&gt; 2  0       0        0        0      0       0        0        0        0</span></span>
+<span><span class="co">#&gt; 3  0       0        0        0      0       0        0        0        0</span></span>
+<span><span class="co">#&gt;   Q1SKNDSC</span></span>
+<span><span class="co">#&gt; 1        0</span></span>
+<span><span class="co">#&gt; 2        0</span></span>
+<span><span class="co">#&gt; 3        0</span></span>
+<span></span>
+<span><span class="va">my_dictionary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>original_varname <span class="op">=</span> <span class="st">"subject id"</span>, dict_varname <span class="op">=</span> <span class="st">"subjid"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/tidy_varnames.html">tidy_varnames</a></span><span class="op">(</span><span class="va">adxx</span>, dict_dat  <span class="op">=</span> <span class="va">my_dictionary</span><span class="op">)</span> <span class="co"># 'SUBJID' used</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 9 of 10 (90%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 3:  'studyid' was renamed to 'STUDYID2'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'SUBJID'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'ENT1C'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'EYES1B'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'LUNGS1D'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'HEART1E'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'YEARNUMB'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'SKNDSC1A'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; All renamed variables passed validation.</span></span>
+<span><span class="co">#&gt;   V1 STUDYID STUDYID2 SUBJID ENT1C EYES1B LUNGS1D HEART1E YEARNUMB SKNDSC1A</span></span>
+<span><span class="co">#&gt; 1  0       0        0      0     0      0       0       0        0        0</span></span>
+<span><span class="co">#&gt; 2  0       0        0      0     0      0       0       0        0        0</span></span>
+<span><span class="co">#&gt; 3  0       0        0      0     0      0       0       0        0        0</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/tidy_varnames.html">tidy_varnames</a></span><span class="op">(</span><span class="va">adxx</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span> <span class="co"># permissible for legacy studies</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks failed:</span></span>
+<span><span class="co">#&gt; * Must be 8 characters or less: Variables `subject id`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Must start with a letter: Variables `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any non-ASCII, symbol or underscore characters: Variables `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; * Cannot contain any lowercase characters Variables ``, `studyid`, `subject id`, `1c. ENT`, `1b. Eyes`, `1d. Lungs`, `1e. Heart`, `year number`, and `1a. Skin_Desc`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 9 of 10 (90%) variables were renamed ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Var 1:  '' was renamed to 'V1'</span></span>
+<span><span class="co">#&gt; Var 3:  'studyid' was renamed to 'STUDYID2'</span></span>
+<span><span class="co">#&gt; Var 4:  'subject id' was renamed to 'SUBJCTID'</span></span>
+<span><span class="co">#&gt; Var 5:  '1c. ENT' was renamed to 'ENT_1C'</span></span>
+<span><span class="co">#&gt; Var 6:  '1b. Eyes' was renamed to 'EYES_1B'</span></span>
+<span><span class="co">#&gt; Var 7:  '1d. Lungs' was renamed to 'LUNGS_1D'</span></span>
+<span><span class="co">#&gt; Var 8:  '1e. Heart' was renamed to 'HEART_1E'</span></span>
+<span><span class="co">#&gt; Var 9:  'year number' was renamed to 'YEARNMBR'</span></span>
+<span><span class="co">#&gt; Var 10:  '1a. Skin_Desc' was renamed to 'SKNDSC1A'</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The following variable name validation checks still failed:</span></span>
+<span><span class="co">#&gt; Cannot contain any non-ASCII, symbol or underscore characters: Variables `ENT_1C`, `EYES_1B`, `LUNGS_1D`, and `HEART_1E`.</span></span>
+<span><span class="co">#&gt; Cannot contain any lowercase characters Variables `ENT_1C`, `EYES_1B`, `LUNGS_1D`, and `HEART_1E`.</span></span>
+<span><span class="co">#&gt;   V1 STUDYID STUDYID2 SUBJCTID ENT_1C EYES_1B LUNGS_1D HEART_1E YEARNMBR</span></span>
+<span><span class="co">#&gt; 1  0       0        0        0      0       0        0        0        0</span></span>
+<span><span class="co">#&gt; 2  0       0        0        0      0       0        0        0        0</span></span>
+<span><span class="co">#&gt; 3  0       0        0        0      0       0        0        0        0</span></span>
+<span><span class="co">#&gt;   SKNDSC1A</span></span>
+<span><span class="co">#&gt; 1        0</span></span>
+<span><span class="co">#&gt; 2        0</span></span>
+<span><span class="co">#&gt; 3        0</span></span></code></pre></div>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
 </div>
 </div>
-
+</div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">

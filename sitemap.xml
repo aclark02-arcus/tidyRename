@@ -27,4 +27,13 @@
   <url>
     <loc>/reference/index.html</loc>
   </url>
+  <url>
+    <loc>/reference/tidyRename-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/tidy_rename.html</loc>
+  </url>
+  <url>
+    <loc>/reference/tidy_varnames.html</loc>
+  </url>
 </urlset>
