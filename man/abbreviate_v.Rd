@@ -22,7 +22,9 @@ those intact as it continues onto the terms with the next highest minLength
 values. This continues iteratively until the lowest minlength is reached.
 }
 \examples{
-abbreviate_v(c("Fruit Flies", "Tubular Dude"),c(4,6))
+if(interactive()) {
+  abbreviate_v(c("Fruit Flies", "Tubular Dude"),c(4,6))
+}
 
 }
 \keyword{internal}

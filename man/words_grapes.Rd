@@ -15,6 +15,8 @@ supported.}
 Find and replace Percent symbols with "Pct"
 }
 \examples{
-words_grapes("Johnny owes me 90\% of his sandwich")
+if(interactive()) {
+  words_grapes("Johnny owes me 90\% of his sandwich")
+}
 }
 \keyword{internal}

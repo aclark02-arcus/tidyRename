@@ -39,19 +39,21 @@ Take multiple character vectors as inputs and return the final suggestion or the
 transfermation method used.
 }
 \examples{
-least_pushy_rename_method(
-  char_len = 8,
-  original_varname = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
+if(interactive()) {
+  least_pushy_rename_method(
+    char_len = 8,
+    original_varname = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
      "1e. Heart", "year number", "1a. Skin_Desc"),
-  dict_varname = c(NA, "SUBJID", NA, NA, NA, NA, NA, NA),
-  use_bundle = c("","","","","","","",""),
-  adj_orig = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
+    dict_varname = c(NA, "SUBJID", NA, NA, NA, NA, NA, NA),
+    use_bundle = c("","","","","","","",""),
+    adj_orig = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
      "1e. Heart", "year number", "1a. Skin_Desc"),
-  stem = c("", "subject id", "c ent", "b eye", "d lung", "e heart",
+    stem = c("", "subject id", "c ent", "b eye", "d lung", "e heart",
      "year number", "a skin desc"),
-  abbrev = c("", "subjctid", "_1c. ENT", "_1b.Eyes", "_1d lung", "_1eheart",
+    abbrev = c("", "subjctid", "_1c. ENT", "_1b.Eyes", "_1d lung", "_1eheart",
      "yearnmbr", "_1asknds"),
-  abbr_transf = c("","","","","","","")
+    abbr_transf = c("","","","","","","")
   )
+}
 }
 \keyword{internal}

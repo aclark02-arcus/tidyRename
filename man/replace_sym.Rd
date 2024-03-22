@@ -18,6 +18,8 @@ Defaults to blank space.}
 Find and replace special characters or symbols
 }
 \examples{
-replace_sym("i.Ate-1grape?")
+if(interactive()) {
+  replace_sym("i.Ate-1grape?")
+}
 }
 \keyword{internal}

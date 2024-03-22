@@ -15,7 +15,9 @@ supported.}
 Indicate 1 if a string starts with a number, 0 otherwise
 }
 \examples{
-starts_with_number("iAteABunch_of_grapesUntil99\%Full")
-starts_with_number("1a.How Was Brunch?")
+if(interactive()) {
+  starts_with_number("iAteABunch_of_grapesUntil99\%Full")
+  starts_with_number("1a.How Was Brunch?")
+}
 }
 \keyword{internal}

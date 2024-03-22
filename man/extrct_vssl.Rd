@@ -22,6 +22,8 @@ A helper function used to simplify the extraction of certain prefix bundles, use
 \code{\link{gather_n_move_prefix_num_bundle}}.
 }
 \examples{
-extrct_vssl(x = "1a. How Was Brunch?", 1, "[^[:alnum:]]([0-9]){1,3}")
+if(interactive()) {
+  extrct_vssl(x = "1a. How Was Brunch?", 1, "[^[:alnum:]]([0-9]){1,3}")
+}
 }
 \keyword{internal}

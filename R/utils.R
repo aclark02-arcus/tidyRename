@@ -14,7 +14,9 @@
 #'
 #' @keywords internal
 #' @examples
-#' abbreviate_v(c("Fruit Flies", "Tubular Dude"),c(4,6))
+#' if(interactive()) {
+#'   abbreviate_v(c("Fruit Flies", "Tubular Dude"),c(4,6))
+#' }
 #'
 abbreviate_v <- function(names.arg, minlength){
   if(!is.numeric(minlength)) stop("minlength arg must be numeric")
@@ -50,7 +52,9 @@ abbreviate_v <- function(names.arg, minlength){
 #'
 #' @keywords internal
 #' @examples
-#' words_grapes("Johnny owes me 90% of his sandwich")
+#' if(interactive()) {
+#'   words_grapes("Johnny owes me 90% of his sandwich")
+#' }
 words_grapes <- function(x) {
   gsub("\\%","Pct", x)
 }
@@ -64,7 +68,9 @@ words_grapes <- function(x) {
 #'
 #' @keywords internal
 #' @examples
-#' words_("I_Ate")
+#' if(interactive()) {
+#'   words_("I_Ate")
+#' }
 words_ <- function(x) {
   gsub("\\_"," ",x)
 }
@@ -80,7 +86,9 @@ words_ <- function(x) {
 #'
 #' @keywords internal
 #' @examples
-#' words_ABb("IAte")
+#' if(interactive()) {
+#'   words_ABb("IAte")
+#' }
 words_ABb <- function(x) {
   gsub("([[:upper:]])([[:upper:]][[:lower:]])","\\1 \\2",x)
 }
@@ -95,7 +103,9 @@ words_ABb <- function(x) {
 #'
 #' @keywords internal
 #' @examples
-#' words_aB("iAte")
+#' if(interactive()) {
+#'   words_aB("iAte")
+#' }
 words_aB <- function(x) {
   gsub("([[:lower:]])([[:upper:]])","\\1 \\2",x)
 }
@@ -110,7 +120,9 @@ words_aB <- function(x) {
 #'
 #' @keywords internal
 #' @examples
-#' words_1a(x = "iAte1grape")
+#' if(interactive()) {
+#'   words_1a(x = "iAte1grape")
+#' }
 words_1a <- function(x) {
   gsub("([0-9])([[:alpha:]])","\\1 \\2",x)
 }
@@ -125,7 +137,9 @@ words_1a <- function(x) {
 #'
 #' @keywords internal
 #' @examples
-#' words_a1("iAte1grape")
+#' if(interactive()) {
+#'   words_a1("iAte1grape")
+#' }
 words_a1 <- function(x) {
   gsub("([[:alpha:]])([0-9])","\\1 \\2",x)
 }
@@ -141,7 +155,9 @@ words_a1 <- function(x) {
 #'
 #' @keywords internal
 #' @examples
-#' replace_sym("i.Ate-1grape?")
+#' if(interactive()) {
+#'   replace_sym("i.Ate-1grape?")
+#' }
 replace_sym <- function(x, replace = " ") {
   gsub("[^[:alnum:]]", replace, x)
 }
@@ -156,7 +172,9 @@ replace_sym <- function(x, replace = " ") {
 #'
 #' @keywords internal
 #' @examples
-#' read_words("iAteABunch_of_grapesUntil99%Full")
+#' if(interactive()) {
+#'   read_words("iAteABunch_of_grapesUntil99%Full")
+#' }
 read_words <- function(x){
   # x %>% words_grapes() %>% words_() %>% words_ABb() %>% words_aB()
   words_aB(words_ABb(words_(words_grapes(x)))) # with no pipes
@@ -173,7 +191,9 @@ read_words <- function(x){
 #'
 #' @keywords internal
 #' @examples
-#' read_words_and_nums("iAteABunch_of_grapesUntil99%Full")
+#' if(interactive()) {
+#'  read_words_and_nums("iAteABunch_of_grapesUntil99%Full")
+#' }
 read_words_and_nums <- function(x){
   # x %>% read_words() %>% words_1a() %>% words_a1()
   words_a1(words_1a(read_words(x))) # with no pipes
@@ -190,7 +210,9 @@ read_words_and_nums <- function(x){
 #'
 #' @keywords internal
 #' @examples
-#' read_words_nums_no_sym(x = "iAteABunch_of_grapesUntil99%Full")
+#' if(interactive()) {
+#'   read_words_nums_no_sym(x = "iAteABunch_of_grapesUntil99%Full")
+#' }
 read_words_nums_no_sym <- function(x){
   # x %>% replace_sym() %>% read_words_and_nums()
   read_words_and_nums(replace_sym(x)) # with no pipes
@@ -205,8 +227,10 @@ read_words_nums_no_sym <- function(x){
 #'
 #' @keywords internal
 #' @examples
-#' starts_with_number("iAteABunch_of_grapesUntil99%Full")
-#' starts_with_number("1a.How Was Brunch?")
+#' if(interactive()) {
+#'   starts_with_number("iAteABunch_of_grapesUntil99%Full")
+#'   starts_with_number("1a.How Was Brunch?")
+#' }
 starts_with_number <- function(x){
   suppressWarnings(ifelse((!is.na(as.numeric(substr(x,1,1)))),1,0))
 }
@@ -222,8 +246,10 @@ starts_with_number <- function(x){
 #'
 #' @keywords internal
 #' @examples
-#' prefix_num(x = "iAteABunch_of_grapesUntil99%Full")
-#' prefix_num(x = "1a.How Was Brunch? Still $2.99?")
+#' if(interactive()) {
+#'   prefix_num(x = "iAteABunch_of_grapesUntil99%Full")
+#'   prefix_num(x = "1a.How Was Brunch? Still $2.99?")
+#' }
 prefix_num <- function(x){
   suppressWarnings(ifelse(starts_with_number(x) == 1, readr::parse_number(x), ""))
 }
@@ -244,7 +270,9 @@ prefix_num <- function(x){
 #'
 #' @keywords internal
 #' @examples
-#' extrct_vssl(x = "1a. How Was Brunch?", 1, "[^[:alnum:]]([0-9]){1,3}")
+#' if(interactive()) {
+#'   extrct_vssl(x = "1a. How Was Brunch?", 1, "[^[:alnum:]]([0-9]){1,3}")
+#' }
 extrct_vssl <- function(x, num, srch_patt){
   x %>%
     read_words() %>%
@@ -279,11 +307,14 @@ extrct_vssl <- function(x, num, srch_patt){
 #'
 #' @keywords internal
 #' @examples
-#' gather_n_move_prefix_num_bundle(x = "iAteABunch_of_grapesUntil99%Full")
-#' gather_n_move_prefix_num_bundle(x = "1a. How Was Brunch?")
-#' gather_n_move_prefix_num_bundle(x = "2aa How Was Brunch2day?")
-#' gather_n_move_prefix_num_bundle(x = "30abHow Was Brunch2day?")
-#' gather_n_move_prefix_num_bundle(x = c("30ab.How Was Brunch2day?", "40AHow Was Brunch2day?"))
+#' if(interactive()) {
+#'   gather_n_move_prefix_num_bundle(x = "iAteABunch_of_grapesUntil99%Full")
+#'   gather_n_move_prefix_num_bundle(x = "1a. How Was Brunch?")
+#'   gather_n_move_prefix_num_bundle(x = "2aa How Was Brunch2day?")
+#'   gather_n_move_prefix_num_bundle(x = "30abHow Was Brunch2day?")
+#'   gather_n_move_prefix_num_bundle(x = c("30ab.How Was Brunch2day?",
+#'     "40AHow Was Brunch2day?"))
+#' }
 gather_n_move_prefix_num_bundle <- function(x, relo_2_end = T, sep = "_"){
 
   full_bundle <- purrr::map_chr(x, function(x){
@@ -352,9 +383,11 @@ gather_n_move_prefix_num_bundle <- function(x, relo_2_end = T, sep = "_"){
 #'
 #' @keywords internal
 #' @examples
-#' chg_letter_case(c("hello darkness","My Old FRIEND"), "lower" )
-#' chg_letter_case(c("hello darkness","My Old FRIEND"), "upper" )
-#' chg_letter_case(c("hello darkness","My Old FRIEND"), "asis" )
+#' if(interactive()) {
+#'   chg_letter_case(c("hello darkness","My Old FRIEND"), "lower" )
+#'   chg_letter_case(c("hello darkness","My Old FRIEND"), "upper" )
+#'   chg_letter_case(c("hello darkness","My Old FRIEND"), "asis" )
+#' }
 chg_letter_case <- function(x, letter_case = "asis"){
   if(tolower(letter_case) == "upper")  {toupper(x)}
   else if(tolower(letter_case) == "lower") {tolower(x)}
@@ -523,20 +556,22 @@ xpt_validate_var_names <- function(varnames,
 #'
 #' @keywords internal
 #' @examples
-#' least_pushy_rename_method(
-#'   char_len = 8,
-#'   original_varname = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
+#' if(interactive()) {
+#'   least_pushy_rename_method(
+#'     char_len = 8,
+#'     original_varname = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
 #'      "1e. Heart", "year number", "1a. Skin_Desc"),
-#'   dict_varname = c(NA, "SUBJID", NA, NA, NA, NA, NA, NA),
-#'   use_bundle = c("","","","","","","",""),
-#'   adj_orig = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
+#'     dict_varname = c(NA, "SUBJID", NA, NA, NA, NA, NA, NA),
+#'     use_bundle = c("","","","","","","",""),
+#'     adj_orig = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
 #'      "1e. Heart", "year number", "1a. Skin_Desc"),
-#'   stem = c("", "subject id", "c ent", "b eye", "d lung", "e heart",
+#'     stem = c("", "subject id", "c ent", "b eye", "d lung", "e heart",
 #'      "year number", "a skin desc"),
-#'   abbrev = c("", "subjctid", "_1c. ENT", "_1b.Eyes", "_1d lung", "_1eheart",
+#'     abbrev = c("", "subjctid", "_1c. ENT", "_1b.Eyes", "_1d lung", "_1eheart",
 #'      "yearnmbr", "_1asknds"),
-#'   abbr_transf = c("","","","","","","")
+#'     abbr_transf = c("","","","","","","")
 #'   )
+#' }
 least_pushy_rename_method <- function(char_len,
                                       relo_2_end = TRUE,
                                       sep = '_',

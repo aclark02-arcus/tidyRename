@@ -17,6 +17,8 @@ Uses a smattering of string functions to separate words that may be smashed
 together so that the the character element is more human readable
 }
 \examples{
-read_words("iAteABunch_of_grapesUntil99\%Full")
+if(interactive()) {
+  read_words("iAteABunch_of_grapesUntil99\%Full")
+}
 }
 \keyword{internal}

@@ -15,6 +15,8 @@ supported.}
 Find and replace _'s (underscores) with a blank space " "
 }
 \examples{
-words_("I_Ate")
+if(interactive()) {
+  words_("I_Ate")
+}
 }
 \keyword{internal}

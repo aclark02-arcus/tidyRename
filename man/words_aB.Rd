@@ -17,6 +17,8 @@ Insert a space between a lowercase character and an uppercase to
 separate a character string into assumed 'words'
 }
 \examples{
-words_aB("iAte")
+if(interactive()) {
+  words_aB("iAte")
+}
 }
 \keyword{internal}

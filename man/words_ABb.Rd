@@ -19,6 +19,8 @@ lower case letter, then add a space between the two capital letters to
 separate the assumed 'words'
 }
 \examples{
-words_ABb("IAte")
+if(interactive()) {
+  words_ABb("IAte")
+}
 }
 \keyword{internal}

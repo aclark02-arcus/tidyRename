@@ -15,7 +15,9 @@ supported.}
 Return number if a string starts with a number, "" otherwise
 }
 \examples{
-prefix_num(x = "iAteABunch_of_grapesUntil99\%Full")
-prefix_num(x = "1a.How Was Brunch? Still $2.99?")
+if(interactive()) {
+  prefix_num(x = "iAteABunch_of_grapesUntil99\%Full")
+  prefix_num(x = "1a.How Was Brunch? Still $2.99?")
+}
 }
 \keyword{internal}

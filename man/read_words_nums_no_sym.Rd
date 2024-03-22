@@ -19,6 +19,8 @@ may be smashed together so that the the character element is more human
 readable
 }
 \examples{
-read_words_nums_no_sym(x = "iAteABunch_of_grapesUntil99\%Full")
+if(interactive()) {
+  read_words_nums_no_sym(x = "iAteABunch_of_grapesUntil99\%Full")
+}
 }
 \keyword{internal}

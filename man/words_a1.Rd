@@ -17,6 +17,8 @@ Insert a space between a character followed by a number to create the assumed
 "words" in the character vector
 }
 \examples{
-words_a1("iAte1grape")
+if(interactive()) {
+  words_a1("iAte1grape")
+}
 }
 \keyword{internal}

@@ -37,10 +37,13 @@ bundles, where 3 is used as an example starting digit:
 }
 }
 \examples{
-gather_n_move_prefix_num_bundle(x = "iAteABunch_of_grapesUntil99\%Full")
-gather_n_move_prefix_num_bundle(x = "1a. How Was Brunch?")
-gather_n_move_prefix_num_bundle(x = "2aa How Was Brunch2day?")
-gather_n_move_prefix_num_bundle(x = "30abHow Was Brunch2day?")
-gather_n_move_prefix_num_bundle(x = c("30ab.How Was Brunch2day?", "40AHow Was Brunch2day?"))
+if(interactive()) {
+  gather_n_move_prefix_num_bundle(x = "iAteABunch_of_grapesUntil99\%Full")
+  gather_n_move_prefix_num_bundle(x = "1a. How Was Brunch?")
+  gather_n_move_prefix_num_bundle(x = "2aa How Was Brunch2day?")
+  gather_n_move_prefix_num_bundle(x = "30abHow Was Brunch2day?")
+  gather_n_move_prefix_num_bundle(x = c("30ab.How Was Brunch2day?",
+    "40AHow Was Brunch2day?"))
+}
 }
 \keyword{internal}

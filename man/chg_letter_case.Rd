@@ -19,8 +19,10 @@ string, \code{x}, may have been altered by the janitor package's use of
 \code{\link[snakecase]{to_any_case}} later on, when suggesting a rename
 }
 \examples{
-chg_letter_case(c("hello darkness","My Old FRIEND"), "lower" )
-chg_letter_case(c("hello darkness","My Old FRIEND"), "upper" )
-chg_letter_case(c("hello darkness","My Old FRIEND"), "asis" )
+if(interactive()) {
+  chg_letter_case(c("hello darkness","My Old FRIEND"), "lower" )
+  chg_letter_case(c("hello darkness","My Old FRIEND"), "upper" )
+  chg_letter_case(c("hello darkness","My Old FRIEND"), "asis" )
+}
 }
 \keyword{internal}
