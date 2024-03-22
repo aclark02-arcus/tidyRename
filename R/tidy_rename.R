@@ -47,6 +47,7 @@
 #'   string are changed. If `sep = ""`, then underscores will be trimmed later.
 #' @param return_df logical, defaults to TRUE where entire dataset is returned
 #'   from suggestion process, else just the suggestion column itself
+#' @param verbose logical
 #'
 #' @details Abbreviating variable names in the `xportr` pkg uses a step-by-step
 #'   process detailed below. Each original variable name will be renamed based

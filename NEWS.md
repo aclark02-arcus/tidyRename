@@ -1,3 +1,3 @@
 # tidyRename (development version)
 
-* Initial CRAN submission.
+* Setting up package for the first time

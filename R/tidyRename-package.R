@@ -8,4 +8,5 @@
 #' @importFrom tm stemDocument
 #' @importFrom cli cli_h2 cli_alert_danger
 #' @importFrom glue glue
+#' @import SnowballC
 "_PACKAGE"

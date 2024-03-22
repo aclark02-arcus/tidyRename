@@ -12,9 +12,7 @@
 #' @param minlength the minimum length of the abbreviations, as a numeric
 #'   vector. Must be same lenth as names.arg argument's vector.
 #'
-#' @export
-#' @noRd
-#'
+#' @keywords internal
 #' @examples
 #' abbreviate_v(c("Fruit Flies", "Tubular Dude"),c(4,6))
 #'
@@ -50,8 +48,7 @@ abbreviate_v <- function(names.arg, minlength){
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' words_grapes("Johnny owes me 90% of his sandwich")
 words_grapes <- function(x) {
@@ -65,8 +62,7 @@ words_grapes <- function(x) {
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' words_("I_Ate")
 words_ <- function(x) {
@@ -82,8 +78,7 @@ words_ <- function(x) {
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' words_ABb("IAte")
 words_ABb <- function(x) {
@@ -98,8 +93,7 @@ words_ABb <- function(x) {
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' words_aB("iAte")
 words_aB <- function(x) {
@@ -114,8 +108,7 @@ words_aB <- function(x) {
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' words_1a(x = "iAte1grape")
 words_1a <- function(x) {
@@ -130,8 +123,7 @@ words_1a <- function(x) {
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' words_a1("iAte1grape")
 words_a1 <- function(x) {
@@ -147,8 +139,7 @@ words_a1 <- function(x) {
 #' @param replace character to replace the special characters or symbols with;
 #'   Defaults to blank space.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' replace_sym("i.Ate-1grape?")
 replace_sym <- function(x, replace = " ") {
@@ -163,8 +154,7 @@ replace_sym <- function(x, replace = " ") {
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' read_words("iAteABunch_of_grapesUntil99%Full")
 read_words <- function(x){
@@ -181,8 +171,7 @@ read_words <- function(x){
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' read_words_and_nums("iAteABunch_of_grapesUntil99%Full")
 read_words_and_nums <- function(x){
@@ -199,8 +188,7 @@ read_words_and_nums <- function(x){
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' read_words_nums_no_sym(x = "iAteABunch_of_grapesUntil99%Full")
 read_words_nums_no_sym <- function(x){
@@ -215,8 +203,7 @@ read_words_nums_no_sym <- function(x){
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' starts_with_number("iAteABunch_of_grapesUntil99%Full")
 #' starts_with_number("1a.How Was Brunch?")
@@ -233,8 +220,7 @@ starts_with_number <- function(x){
 #'   be coerced by as.character to a character vector. Long vectors are
 #'   supported.
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' prefix_num(x = "iAteABunch_of_grapesUntil99%Full")
 #' prefix_num(x = "1a.How Was Brunch? Still $2.99?")
@@ -256,8 +242,7 @@ prefix_num <- function(x){
 #'   `gather_n_move_prefix_num_bundle()`
 #' @param srch_patt The regular expression search pattern, expressed as a string
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' extrct_vssl(x = "1a. How Was Brunch?", 1, "[^[:alnum:]]([0-9]){1,3}")
 extrct_vssl <- function(x, num, srch_patt){
@@ -292,8 +277,7 @@ extrct_vssl <- function(x, num, srch_patt){
 #'   * x = "3_17hey" will return "3_17"
 #'   * x = "3hey" will return "3"
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' gather_n_move_prefix_num_bundle(x = "iAteABunch_of_grapesUntil99%Full")
 #' gather_n_move_prefix_num_bundle(x = "1a. How Was Brunch?")
@@ -365,8 +349,7 @@ gather_n_move_prefix_num_bundle <- function(x, relo_2_end = T, sep = "_"){
 #'   as.character to a character vector. Long vectors are supported.
 #' @param letter_case character string, either "lower", "upper", or "asis"
 #'
-#' @noRd
-#' @export
+#' @keywords internal
 #' @examples
 #' chg_letter_case(c("hello darkness","My Old FRIEND"), "lower" )
 #' chg_letter_case(c("hello darkness","My Old FRIEND"), "upper" )
@@ -377,10 +360,17 @@ chg_letter_case <- function(x, letter_case = "asis"){
   else {x} # leave 'else {x}', so  janitor can edit the case (via snakecase::to_any_case)
 }
 
-
-## Functions to output user messages, usually relating to differences
-## found between .df and the metacore object
-
+#' var_names_log
+#'
+#' Functions to output user messages, usually relating to differences
+#' found between .df and the metacore object
+#'
+#' @importFrom cli cli_h2 cli_alert_danger
+#'
+#' @param tidy_names_df placeholder
+#' @param verbose placeholder
+#'
+#' @keywords internal
 var_names_log <- function(tidy_names_df, verbose){
 
 
@@ -415,7 +405,8 @@ var_names_log <- function(tidy_names_df, verbose){
 #' @param n a vector
 #' @param msg1 a vector
 #' @param msg2 a vector
-#' @noRd
+#'
+#' @keywords internal
 ntext <- function(n, msg1, msg2) {
   if (n == 1) msg1 else msg2
 }
@@ -424,7 +415,8 @@ ntext <- function(n, msg1, msg2) {
 #' @importFrom glue glue_collapse
 #'
 #' @param x a vector
-#' @noRd
+#'
+#' @keywords internal
 fmt_comma <- function(x) {
   glue_collapse(x, sep = ", ", last = if (length(x) <= 2) " and " else ", and ")
 }
@@ -432,7 +424,8 @@ fmt_comma <- function(x) {
 #' encode_vars
 #'
 #' @param x a vector
-#' @noRd
+#'
+#' @keywords internal
 encode_vars <- function(x) {
   if (is.character(x)) {
     x <- encodeString(x, quote = "`")
@@ -446,7 +439,8 @@ encode_vars <- function(x) {
 #' @importFrom glue glue
 #'
 #' @param x a vector of variable names
-#' @noRd
+#'
+#' @keywords internal
 fmt_vars <- function(x) {
   vars <- ntext(length(x), "Variable", "Variables")
   glue::glue("{vars} {encode_vars(x)}")
@@ -461,7 +455,7 @@ fmt_vars <- function(x) {
 #' @param list_vars_first a logical
 #' @param err_cnd character string, either empty of containing an error message
 #'
-#' @noRd
+#' @keywords internal
 xpt_validate_var_names <- function(varnames,
                                    list_vars_first = TRUE,
                                    err_cnd = character()) {
@@ -526,7 +520,7 @@ xpt_validate_var_names <- function(varnames,
 #' @param abbr_stem the character abbreviation of the stem or root
 #' @param abbr_parsed the character abbreviation of the adj_orig
 #'
-#' @noRd
+#' @keywords internal
 #' @examples
 #' least_pushy_rename_method(
 #'   char_len = 8,
