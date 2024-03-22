@@ -42,7 +42,7 @@ abbreviate_v <- function(names.arg, minlength){
 }
 
 
-#' Find and replace \%'s with "Pct"
+#' Find and replace Percent symbols with "Pct"
 #'
 #' @param x a character vector where matches are sought, or an object which can
 #'   be coerced by as.character to a character vector. Long vectors are
@@ -214,7 +214,7 @@ starts_with_number <- function(x){
 
 #' Extract Starting Prefix number
 #'
-#' Return "[NUM]" if a string starts with a number, "" otherwise
+#' Return number if a string starts with a number, "" otherwise
 #'
 #' @param x a character vector where matches are sought, or an object which can
 #'   be coerced by as.character to a character vector. Long vectors are
@@ -232,7 +232,7 @@ prefix_num <- function(x){
 #' Prefix Bundle Extraction Vessel
 #'
 #' A helper function used to simplify the extraction of certain prefix bundles, used in
-#' \code\link{gather_n_move_prefix_num_bundle}.
+#' \code{\link{gather_n_move_prefix_num_bundle}}.
 #'
 #' @param x a character vector where matches are sought, or an object which can
 #'   be coerced by as.character to a character vector. Long vectors are
@@ -284,7 +284,6 @@ extrct_vssl <- function(x, num, srch_patt){
 #' gather_n_move_prefix_num_bundle(x = "2aa How Was Brunch2day?")
 #' gather_n_move_prefix_num_bundle(x = "30abHow Was Brunch2day?")
 #' gather_n_move_prefix_num_bundle(x = c("30ab.How Was Brunch2day?", "40AHow Was Brunch2day?"))
-#' gather_n_move_prefix_num_bundle(x = c("iAteABunch_of_grapesUntil99%Full","30ab.How Was Brunch2day?", "40AHow Was Brunch2day?"))
 gather_n_move_prefix_num_bundle <- function(x, relo_2_end = T, sep = "_"){
 
   full_bundle <- purrr::map_chr(x, function(x){
@@ -315,6 +314,8 @@ gather_n_move_prefix_num_bundle <- function(x, relo_2_end = T, sep = "_"){
     }
     return(fb)
   })
+  # another example, but too long
+  # gather_n_move_prefix_num_bundle(x = c("iAteABunch_of_grapesUntil99%Full","30ab.How Was Brunch2day?", "40AHow Was Brunch2day?"))
 
   pfix_st_num_v <- prefix_num(x)
 
@@ -524,12 +525,16 @@ xpt_validate_var_names <- function(varnames,
 #' @examples
 #' least_pushy_rename_method(
 #'   char_len = 8,
-#'   original_varname = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs", "1e. Heart", "year number", "1a. Skin_Desc"),
+#'   original_varname = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
+#'      "1e. Heart", "year number", "1a. Skin_Desc"),
 #'   dict_varname = c(NA, "SUBJID", NA, NA, NA, NA, NA, NA),
 #'   use_bundle = c("","","","","","","",""),
-#'   adj_orig = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs", "1e. Heart", "year number", "1a. Skin_Desc"),
-#'   stem = c("", "subject id", "c ent", "b eye", "d lung", "e heart", "year number", "a skin desc"),
-#'   abbrev = c("", "subjctid", "_1c. ENT", "_1b.Eyes", "_1d lung", "_1eheart", "yearnmbr", "_1asknds")
+#'   adj_orig = c("", "subject id", "1c. ENT", "1b. Eyes", "1d. Lungs",
+#'      "1e. Heart", "year number", "1a. Skin_Desc"),
+#'   stem = c("", "subject id", "c ent", "b eye", "d lung", "e heart",
+#'      "year number", "a skin desc"),
+#'   abbrev = c("", "subjctid", "_1c. ENT", "_1b.Eyes", "_1d lung", "_1eheart",
+#'      "yearnmbr", "_1asknds"),
 #'   abbr_transf = c("","","","","","","")
 #'   )
 least_pushy_rename_method <- function(char_len,

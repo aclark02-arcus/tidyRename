@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{words_grapes}
 \alias{words_grapes}
-\title{Find and replace \\%'s with "Pct"}
+\title{Find and replace Percent symbols with "Pct"}
 \usage{
 words_grapes(x)
 }
@@ -12,7 +12,7 @@ be coerced by as.character to a character vector. Long vectors are
 supported.}
 }
 \description{
-Find and replace \\%'s with "Pct"
+Find and replace Percent symbols with "Pct"
 }
 \examples{
 words_grapes("Johnny owes me 90\% of his sandwich")

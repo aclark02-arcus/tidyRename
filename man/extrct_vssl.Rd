@@ -19,7 +19,7 @@ occurrence of a number in the prefix bundle. Determined automatically in
 }
 \description{
 A helper function used to simplify the extraction of certain prefix bundles, used in
-\code\link{gather_n_move_prefix_num_bundle}.
+\code{\link{gather_n_move_prefix_num_bundle}}.
 }
 \examples{
 extrct_vssl(x = "1a. How Was Brunch?", 1, "[^[:alnum:]]([0-9]){1,3}")

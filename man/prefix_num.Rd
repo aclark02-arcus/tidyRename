@@ -12,7 +12,7 @@ be coerced by as.character to a character vector. Long vectors are
 supported.}
 }
 \description{
-Return "\link{NUM}" if a string starts with a number, "" otherwise
+Return number if a string starts with a number, "" otherwise
 }
 \examples{
 prefix_num(x = "iAteABunch_of_grapesUntil99\%Full")
