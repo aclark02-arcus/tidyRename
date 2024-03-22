@@ -30,6 +30,8 @@ usethis::use_package("tm")
 usethis::use_package("stringr")
 usethis::use_package("purrr")
 usethis::use_package("cli")
+usethis::use_package("glue")
+usethis::use_package("dplyr")
 usethis::use_package("spelling", type = "Suggests")
 
 usethis::use_package("SnowballC")
