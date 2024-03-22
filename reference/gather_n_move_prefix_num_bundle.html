@@ -94,16 +94,14 @@ bundles, where 3 is used as an example starting digit:</p><ul><li><p>x = "3a. he
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"iAteABunch_of_grapesUntil99%Full"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in gather_n_move_prefix_num_bundle(x = "iAteABunch_of_grapesUntil99%Full"):</span> could not find function "gather_n_move_prefix_num_bundle"</span>
-<span class="r-in"><span><span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1a. How Was Brunch?"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in gather_n_move_prefix_num_bundle(x = "1a. How Was Brunch?"):</span> could not find function "gather_n_move_prefix_num_bundle"</span>
-<span class="r-in"><span><span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"2aa How Was Brunch2day?"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in gather_n_move_prefix_num_bundle(x = "2aa How Was Brunch2day?"):</span> could not find function "gather_n_move_prefix_num_bundle"</span>
-<span class="r-in"><span><span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"30abHow Was Brunch2day?"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in gather_n_move_prefix_num_bundle(x = "30abHow Was Brunch2day?"):</span> could not find function "gather_n_move_prefix_num_bundle"</span>
-<span class="r-in"><span><span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"30ab.How Was Brunch2day?"</span>, <span class="st">"40AHow Was Brunch2day?"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in gather_n_move_prefix_num_bundle(x = c("30ab.How Was Brunch2day?",     "40AHow Was Brunch2day?")):</span> could not find function "gather_n_move_prefix_num_bundle"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"iAteABunch_of_grapesUntil99%Full"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1a. How Was Brunch?"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"2aa How Was Brunch2day?"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"30abHow Was Brunch2day?"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">gather_n_move_prefix_num_bundle</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"30ab.How Was Brunch2day?"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"40AHow Was Brunch2day?"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

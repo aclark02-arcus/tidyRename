@@ -75,17 +75,18 @@
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h2>
 <p><code>{tidyRename}</code> was originally designed for automating the creation of submission compliant variable attributes for SAS v5 Transport files (i.e. &lt;=8 characters for variable names, among other things). However, the same concepts can be expanded to CSR activities i.e., SDTM variables mapping process etc. to ensure uniformity among users and eliminates wasted time manually creating easily-readable variable names for high dimensional data sets. In fact, <code>{tidyRename}</code> can be useful outside of the pharma industry as well - it’s a handy “renamer”. Just give it a vector of strings, and it will tidy them up for you to meet your custom needs. See example use cases below!</p>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="origins">Origins<a class="anchor" aria-label="anchor" href="#origins"></a>
 </h2>
 <p>Project built off of this <a href="https://github.com/atorus-research/xportr/pull/11/files" class="external-link">contribution</a> to <a href="https://github.com/atorus-research/xportr" class="external-link">{xportr}</a> from the <a href="https://pharmaverse.org/" class="external-link">{pharmaverse}</a></p>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="what-are-the-checks">What are the checks?<a class="anchor" aria-label="anchor" href="#what-are-the-checks"></a>
 </h2>
 <p>If you interested in using <code>{tidyRename}</code> for submission compliance to regulatory bodies, here’s what you can expect from it’s output:</p>
-<p><br></p>
 <ul>
 <li>Variable names must start with a letter (not an underscore), be comprised of only uppercase letters (A-Z), numerals (0-9) and be free of non-ASCII characters, symbols, and underscores.</li>
 <li>Allotted length for each column containing character (text) data should be set to the maximum length of the variable used across all data sets (≤ 200)</li>
@@ -96,6 +97,7 @@
 <li>Data set labels are ≤ 40 characters.</li>
 <li>Presence of non-ASCII characters in Variable Names, Labels or data set labels.</li>
 </ul>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -104,6 +106,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"aclark02-arcus/tidyRename"</span><span class="op">)</span></span></code></pre></div>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="example-use-cases">Example use cases<a class="anchor" aria-label="anchor" href="#example-use-cases"></a>
