@@ -232,19 +232,19 @@ tidy_rename <- function(
   # method for each term
   my_vars01 <-
     d %>%
-    mutate(lower_original_varname = tolower(original_varname)) %>% # for join w/ dict. Don't want join to be case sensitive
-    left_join(
+    dplyr::mutate(lower_original_varname = tolower(original_varname)) %>% # for join w/ dict. Don't want join to be case sensitive
+    dplyr::left_join(
       dict_dat %>%
-        mutate(lower_original_varname = tolower(original_varname)) %>%
-        select(lower_original_varname, dict_varname) %>%
-        distinct(lower_original_varname, .keep_all = T)
+        dplyr::mutate(lower_original_varname = tolower(original_varname)) %>%
+        dplyr::select(lower_original_varname, dict_varname) %>%
+        dplyr::distinct(lower_original_varname, .keep_all = T)
       , by = "lower_original_varname"
     ) %>%
-    select(-lower_original_varname) %>%
-    mutate(
+    dplyr::select(-lower_original_varname) %>%
+    dplyr::mutate(
       num_st_ind = starts_with_number(original_varname)
       , prefix_bundle = pb$bundle
-      , use_bundle = case_when(relo_2_end ~ "",
+      , use_bundle = dplyr::case_when(relo_2_end ~ "",
                                relo_2_end == FALSE & prefix_bundle != "" ~ letter_for_num_prefix,
                                TRUE ~ "")
       , viable_start = viable
@@ -279,7 +279,7 @@ tidy_rename <- function(
       , abbr_stem = abbreviate_v(stem, minlength = my_minlength)
 
     ) %>%
-    mutate(
+    dplyr::mutate(
       renamed_var =
         least_pushy_rename_method(
           char_len = char_len,
@@ -298,11 +298,11 @@ tidy_rename <- function(
   # add a new var, keeping track of dups
   my_vars <-
     my_vars01 %>%
-    left_join(
+    dplyr::left_join(
       my_vars01 %>%
-        group_by(renamed_var) %>%
-        summarize(renamed_n = n()) %>%
-        ungroup()
+        dplyr::group_by(renamed_var) %>%
+        dplyr::summarize(renamed_n = dplyr::n()) %>%
+        dplyr::ungroup()
       , by = "renamed_var")
 
 

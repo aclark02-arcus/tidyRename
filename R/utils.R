@@ -306,7 +306,7 @@ gather_n_move_prefix_num_bundle <- function(x, relo_2_end = T, sep = "_"){
   full_bundle <- purrr::map_chr(x, function(x){
     pfix_st_num <- prefix_num(x) # grab prefix num
     if(pfix_st_num != ""){ # if it exists...
-      fb <- case_when(
+      fb <- dplyr::case_when(
         # Example x = "3a. hey"
         !(extrct_vssl(x, pfix_st_num, "[[:alpha:]]{1,2}[^[:alnum:]]") %>% is.na()) ~
           extrct_vssl(x, pfix_st_num, "[[:alpha:]]{1,2}[^[:alnum:]]"),
@@ -378,6 +378,97 @@ chg_letter_case <- function(x, letter_case = "asis"){
 }
 
 
+## Functions to output user messages, usually relating to differences
+## found between .df and the metacore object
+
+var_names_log <- function(tidy_names_df, verbose){
+
+
+  only_renames <- tidy_names_df %>%
+    dplyr::filter(original_varname != renamed_var) %>%
+    dplyr::mutate(renamed_msg = paste0("Var ", col_pos, ":  '", original_varname,
+                                "' was renamed to '", renamed_var, "'"))
+
+  # Message regarding number of variables that were renamed/ modified
+  num_renamed <- nrow(only_renames)
+  tot_num_vars <- nrow(tidy_names_df)
+  message("\n")
+  cli::cli_h2(paste0( num_renamed, " of ", tot_num_vars, " (",
+                      round(100*(num_renamed/tot_num_vars), 1), "%) variables were renamed"))
+
+  # Message stating any renamed variables each original variable and it's new name
+  if(nrow(only_renames) > 0) message(paste0(paste(only_renames$renamed_msg, collapse = "\n"), "\n"))
+
+  # Message checking for duplicate variable names after renamed (Pretty sure
+  # this is impossible) but good to have a check none-the-less.
+  dups <- tidy_names_df %>% filter(renamed_n > 1)
+  if(nrow(dups) != 0) {
+    cli::cli_alert_danger(
+      paste("Duplicate renamed term(s) were created. Consider creating dictionary terms for:",
+            paste(unique(dups$renamed_var), collapse = ", ")
+      ))
+  }
+}
+
+
+
+#' Execute checks on variable names
+#'
+#'
+#' @param varnames a vector of variable namess
+#' @param list_vars_first a logical
+#' @param err_cnd character string, either empty of containing an error message
+#'
+#' @noRd
+xpt_validate_var_names <- function(varnames,
+                                   list_vars_first = TRUE,
+                                   err_cnd = character()) {
+
+  # 1.1 Check length --
+  chk_varlen <- varnames[nchar(varnames) > 8]
+
+  if (length(chk_varlen) > 0) {
+    err_cnd <- c(err_cnd, ifelse(list_vars_first,
+                                 glue("{fmt_vars(chk_varlen)} must be 8 characters or less."),
+                                 glue("
+                      Must be 8 characters or less: {fmt_vars(chk_varlen)}.")))
+  }
+
+  # 1.2 Check first character --
+  chk_first_chr <- varnames[stringr::str_detect(stringr::str_sub(varnames, 1, 1),
+                                                "[^[:alpha:]]")]
+
+  if (length(chk_first_chr) > 0) {
+    err_cnd <- c(err_cnd, ifelse(list_vars_first,
+                                 glue("{fmt_vars(chk_first_chr)} must start with a letter."),
+                                 glue("
+                      Must start with a letter: {fmt_vars(chk_first_chr)}.")))
+  }
+
+  # 1.3 Check Non-ASCII and underscore characters --
+  chk_alnum <- varnames[stringr::str_detect(varnames, "[^a-zA-Z0-9]")]
+
+  if (length(chk_alnum) > 0) {
+    err_cnd <- c(err_cnd, ifelse(list_vars_first,
+                                 glue("{fmt_vars(chk_alnum)} cannot contain any non-ASCII, symbol or underscore characters."),
+                                 glue("
+                      Cannot contain any non-ASCII, symbol or underscore characters: {fmt_vars(chk_alnum)}.")))
+  }
+
+  # 1.4 Check for any lowercase letters - or not all uppercase
+  chk_lower <- varnames[!stringr::str_detect(
+    stringr::str_replace_all(varnames, "[:digit:]", ""),
+    "^[[:upper:]]+$")]
+
+  if (length(chk_lower) > 0) {
+    err_cnd <- c(err_cnd, ifelse(list_vars_first,
+                                 glue("{fmt_vars(chk_lower)} cannot contain any lowercase characters."),
+                                 glue("
+                      Cannot contain any lowercase characters {fmt_vars(chk_lower)}.")))
+  }
+  return(err_cnd)
+}
+
 #' Suggest a new renamed / abbreviated term
 #'
 #' Take multiple character vectors as inputs and return the final suggestion or the
@@ -418,7 +509,7 @@ least_pushy_rename_method <- function(char_len,
 ){
 
   col_pos <- seq.int(length(original_varname))
-  case_when(
+  dplyr::case_when(
 
     # Name blank cols
     original_varname == "" | is.na(original_varname) ~ paste0("V",col_pos),
@@ -442,7 +533,7 @@ least_pushy_rename_method <- function(char_len,
 
     # Abbreviation
     TRUE ~
-      case_when(
+      dplyr::case_when(
         nchar(paste0(use_bundle, abbr_parsed)) <= char_len &
           nchar(abbr_parsed) >= nchar(abbr_stem) ~ paste0(use_bundle, abbr_parsed)
 

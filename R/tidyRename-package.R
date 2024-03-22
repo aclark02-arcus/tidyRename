@@ -6,4 +6,5 @@
 #' @importFrom purrr map_chr map2_chr
 #' @importFrom janitor make_clean_names
 #' @importFrom tm stemDocument
+#' @importFrom cli cli_h2 cli_alert_danger
 "_PACKAGE"
